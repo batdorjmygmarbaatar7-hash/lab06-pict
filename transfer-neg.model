@@ -1,0 +1,11 @@
+# [ERROR] values marked with ~ : at most one negative value per row
+From: Valid, ~Frozen, ~Missing
+To: Valid, ~Missing, ~SameAsFrom
+Amount: Normal, ~Zero, ~Negative, EqualBalance, ~OverBalance, EqualLimit, ~OverLimit
+Currency: Same, Different
+LimitUsed: None, Partial
+
+# ~ already forbids error+error rows, so the From/To [ERROR] constraints are no longer needed.
+# The [SINGLE]/[IF] semantic constraints are still needed:
+IF [Amount] = "EqualBalance" THEN [Currency] = "Same" AND [LimitUsed] = "None";
+IF [Amount] = "EqualLimit" THEN [Currency] = "Same" AND [LimitUsed] = "Partial";

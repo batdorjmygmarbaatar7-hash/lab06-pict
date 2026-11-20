@@ -1,0 +1,6 @@
+# Part A categories in PICT syntax (no constraints)
+From: Valid, Frozen, Missing
+To: Valid, Missing, SameAsFrom
+Amount: Normal, Zero, Negative, EqualBalance, OverBalance, EqualLimit, OverLimit
+Currency: Same, Different
+LimitUsed: None, Partial

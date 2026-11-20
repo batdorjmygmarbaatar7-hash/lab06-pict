@@ -1,0 +1,15 @@
+# Part A categories + A2 constraints
+From: Valid, Frozen, Missing
+To: Valid, Missing, SameAsFrom
+Amount: Normal, Zero, Negative, EqualBalance, OverBalance, EqualLimit, OverLimit
+Currency: Same, Different
+LimitUsed: None, Partial
+
+# [ERROR] invalid From is never combined with another error (avoid error masking)
+IF [From] <> "Valid" THEN [To] = "Valid" AND [Amount] = "Normal";
+# [ERROR] invalid To is never combined with an invalid amount
+IF [To] <> "Valid" THEN [Amount] = "Normal";
+# [SINGLE] amount equal to balance: once, in the simplest setting
+IF [Amount] = "EqualBalance" THEN [Currency] = "Same" AND [LimitUsed] = "None";
+# [SINGLE][IF Partial] amount equal to remaining daily limit: only meaningful if limit partly used
+IF [Amount] = "EqualLimit" THEN [Currency] = "Same" AND [LimitUsed] = "Partial";
